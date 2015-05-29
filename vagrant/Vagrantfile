@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+load 'provision/config'
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "fillup/centos-6.5-x86_64-minimal"
+  config.vm.box_check_update = false
+  config.vm.network :private_network, ip: PRIVATE_NETWORK_IP
+  config.vm.hostname = HOSTNAME
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+
+  config.vm.provision :shell, :path => "provision/basic.sh"
+  config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
+  config.vm.provision :shell, :path => "provision/lucee/lucee.sh"
+# config.vm.provision :shell, :path => "provision/mysql/mysql.sh"
+
+# config.vm.synced_folder "../webapps", "/opt/railo/tomcat/webapps", owner:"root", group:"root"
+
+end
