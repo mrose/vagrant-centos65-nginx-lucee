@@ -27,6 +27,9 @@ touch "${runfile}"
 
 #echo "nginx default configuration directory: /etc/nginx/"
 echo "nginx default configuration file: /etc/nginx/nginx.conf"
+
+#echo "turn sendfile off in the config per https://kisdigital.wordpress.com/tag/nginx/"
+
 #echo "Configure the number of worker processes in nginx.conf (default is 1) should match CPU(s):"
 #echo sudo lscpu | grep '^CPU(s)'
 #echo "Also turn on gzip support (default is commented out): gzip  on;"

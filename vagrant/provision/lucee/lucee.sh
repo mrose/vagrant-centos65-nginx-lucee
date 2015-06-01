@@ -21,7 +21,7 @@ echo "Installing Lucee..."
 
 if [ ! -f "${rundir}/lucee-installer.run" ]; then
   echo "Downloading Lucee..."
-  wget -c -nv $luceeInstaller -O "${rundir}/lucee-installer.run"
+  wget -c $luceeInstaller -O "${rundir}/lucee-installer.run"
   chmod 744 "${rundir}/lucee-installer.run"
 else
   echo "Lucee was already downloaded"
@@ -29,17 +29,15 @@ fi
 
 ${rundir}/lucee-installer.run --mode unattended --railopass $luceePassword --debuglevel 1
 
-#service railo_ctl stop
+service lucee_ctl stop
 
 echo "Configuring Lucee for ${PRIVATE_NETWORK_IP} ..."
 
-# rm -rf /var/www/WEB-INF # nn?
-
-#sed -e "s/localhost/$PRIVATE_NETWORK_IP/g" /vagrant/provision/lucee/server.xml > temp
-#mv temp "${rundir}/tomcat/conf/server.xml"
-#service railo_ctl start
+sed -e "s/localhost/$PRIVATE_NETWORK_IP/g" /vagrant/provision/lucee/server.xml > temp
+mv temp "${rundir}/tomcat/conf/server.xml"
+service lucee_ctl start
 echo "Restarting Lucee..."
-#service nginx restart
+service httpd restart
 touch "${runfile}"
 
 echo "Install Lucee Completed"

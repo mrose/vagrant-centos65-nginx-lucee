@@ -13,10 +13,10 @@ if [ ! -d $tempdir ]; then
   mkdir -p "${tempdir}"
 fi
 
-echo "Installing required software for $(hostname) ..."
+echo "Installing required software for guest $(hostname) ..."
 
 date > /etc/vagrant_provisioned_at
-yum -y update
+#yum -y update
 
 echo "Installing nano, git, wget ..."
 yum -y install nano git wget
