@@ -4,7 +4,8 @@ runfile=".runonce.nginx"
 rpmfile="http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm"
 
 if [ -f "${runfile}" ]; then
-  echo "nginx provisioning already completed - ${runfile} exists - exiting"
+  d=`cat ${runfile}`
+  echo "nginx provisioning already completed ${d}"
   exit 0
 fi
 
@@ -23,7 +24,7 @@ yum -y install nginx
 service nginx start
 chkconfig nginx on
 service nginx status
-touch "${runfile}"
+date > "${runfile}"
 
 #echo "nginx default configuration directory: /etc/nginx/"
 echo "nginx default configuration file: /etc/nginx/nginx.conf"
@@ -39,4 +40,4 @@ echo "nginx default log file directory: /var/log/nginx/"
 #echo "nginx default server access log file: /var/log/nginx/error.log"
 echo "nginx default document root directory: /usr/share/nginx/html"
 
-echo "nginx Install Completed"
+echo "Completed nginx provisioning"

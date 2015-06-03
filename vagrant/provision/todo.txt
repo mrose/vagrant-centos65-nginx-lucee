@@ -1,2 +1,4 @@
 nginx config could be completed per steps here:
 http://www.cyberciti.biz/faq/install-nginx-centos-rhel-6-server-rpm-using-yum-command/
+
+Vagrantfile synced_folder s/b user/group apache not root
