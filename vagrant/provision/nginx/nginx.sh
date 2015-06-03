@@ -1,7 +1,6 @@
 #!/bin/sh
 
-runfile=".runonce.nginx"
-rpmfile="http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm"
+runfile=".provision.nginx"
 
 if [ -f "${runfile}" ]; then
   d=`cat ${runfile}`
@@ -9,16 +8,10 @@ if [ -f "${runfile}" ]; then
   exit 0
 fi
 
-echo "Installing nginx ..."
+echo "Provisioning nginx ..."
 
-if [ ! -f "nginx.rpm" ]; then
-  echo "Downloading nginx RPM..."
-  wget -c "${rpmfile}" -O nginx.rpm
-else
-  echo "nginx was already downloaded"
-fi
-
-rpm -ivh nginx.rpm
+cp -f /vagrant/provision/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
+rpm --import /vagrant/provision/nginx/nginx_signing.key
 yum -y install nginx
 
 service nginx start
