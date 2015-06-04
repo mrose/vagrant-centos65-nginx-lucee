@@ -3,8 +3,8 @@
 runfile=".provision.nginx"
 
 if [ -f "${runfile}" ]; then
-  d=`cat ${runfile}`
-  echo "nginx provisioning already completed ${d}"
+  echo "nginx provisioning already completed `cat ${runfile}`"
+  echo "exiting nginx provisioning"
   exit 0
 fi
 
