@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "provision/java/java.sh"
 #  config.vm.provision :shell, :path => "provision/iptables/iptables.sh"
   config.vm.provision :shell, :path => "provision/tomcat/tomcat.sh"
-#  config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
+  config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
 #  config.vm.provision :shell, :path => "provision/apache/apache.sh"
 #  config.vm.provision :shell, :path => "provision/lucee/lucee.sh"
 #  config.vm.provision :shell, :path => "provision/mysql/mysql.sh"

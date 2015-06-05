@@ -10,7 +10,7 @@ target="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.45-28.b13.el6_6.x86_64"
 
 
 if [ -f "${runfile}" ]; then
-  echo "java provisioning already completed `cat ${runfile}`"
+  echo "java provisioning already completed on `cat ${runfile}`"
   echo "exiting java provisioning"
   exit 0
 fi
