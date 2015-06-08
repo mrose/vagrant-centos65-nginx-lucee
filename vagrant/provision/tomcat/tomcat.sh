@@ -34,6 +34,7 @@ cp -f /vagrant/provision/tomcat/tomcat.init /etc/init.d/tomcat8
 chmod +x /etc/init.d/tomcat8
 
 # other files get copied to /opt/tomcat/conf
+cp -f /vagrant/provision/tomcat/tomcat-users.xml ${tomcathome}/conf/tomcat-users.xml
 
 service tomcat8 start
 chkconfig tomcat8 on

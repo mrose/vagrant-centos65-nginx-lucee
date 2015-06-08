@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source /vagrant/provision/config
+
 runfile=".provision.nginx"
 
 if [ -f "${runfile}" ]; then
@@ -16,7 +18,8 @@ yum -y install nginx
 
 echo "Writing nginx configuration files to: /etc/nginx/"
 cp -f /vagrant/provision/nginx/nginx.conf /etc/nginx/nginx.conf
-cp -f /vagrant/provision/nginx/default.conf /etc/nginx/conf.d/default.conf
+sed 's:example.com:$HOSTNAME:g' /vagrant/provision/nginx/default.conf > temp
+mv -f temp /etc/nginx/conf.d/default.conf
 cp -f /vagrant/provision/nginx/drop.conf /etc/nginx/conf.d/drop.conf
 cp -f /vagrant/provision/nginx/lucee.conf /etc/nginx/conf.d/lucee.conf
 
