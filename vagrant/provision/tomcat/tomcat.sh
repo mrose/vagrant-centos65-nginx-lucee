@@ -40,5 +40,6 @@ service tomcat start
 chkconfig tomcat on
 service tomcat status
 
+rm -f ${target}.tar.gz
 date > "${runfile}"
 echo "Completed tomcat provisioning"

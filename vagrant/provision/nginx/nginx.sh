@@ -13,7 +13,7 @@ fi
 echo "Provisioning nginx ..."
 
 if [ -f /etc/yum.repos.d/nginx.repo ]; then
-  echo "rpm download not necessary since nginx rpm is already in the yum repo"
+  echo "nginx rpm download already completed"
 else
   cp -f /vagrant/provision/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
   rpm --import /vagrant/provision/nginx/nginx_signing.key
@@ -32,10 +32,7 @@ chkconfig nginx on
 service nginx status
 date > "${runfile}"
 
-#echo "nginx default SSL and vhost config directory: /etc/nginx/conf.d/"
 echo "nginx default log file directory: /var/log/nginx/"
-#echo "nginx default server access log file: /var/log/nginx/access.log"
-#echo "nginx default server access log file: /var/log/nginx/error.log"
 echo "nginx default document root directory: /usr/share/nginx/html"
 
 echo "Completed nginx provisioning"

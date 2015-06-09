@@ -2,12 +2,12 @@
 
 source /vagrant/provision/config
 
-runfile=".provision.bootstrap"
+runfile=".provision.basic"
 tempdir="/vagrant/.vagrant/temp"
 
 if [ -f "${runfile}" ]; then
-  echo "bootstrap provisioning for guest $HOSTNAME at ${PRIVATE_NETWORK_IP} already completed on `cat ${runfile}`"
-  echo "exiting bootstrap provisioning"
+  echo "basic provisioning for guest $HOSTNAME at ${PRIVATE_NETWORK_IP} already completed on `cat ${runfile}`"
+  echo "exiting basic provisioning"
   exit 0
 fi
 
@@ -16,7 +16,7 @@ if [ ! -d $tempdir ]; then
   mkdir -p "${tempdir}"
 fi
 
-echo "Provisioning required bootstrap software for guest $HOSTNAME at ${PRIVATE_NETWORK_IP} ..."
+echo "Provisioning required basic software for guest $HOSTNAME at ${PRIVATE_NETWORK_IP} ..."
 
 # update to 6.5+ presumably more secure & better
 #yum -y update
@@ -25,4 +25,4 @@ echo "Installing nano, git, wget ..."
 yum -y install nano git wget
 date > "${runfile}"
 
-echo "Completed bootstrap provisioning"
+echo "Completed basic provisioning"
