@@ -3,41 +3,34 @@
 source /vagrant/provision/config
 
 runfile=".runonce.lucee"
-rundir="/opt/lucee"
 luceePassword="vagrant"
-luceeInstaller="http://railo.viviotech.net/downloader.cfm/id/133/file/lucee-4.5.1.000-pl0-linux-x64-installer.run"
+src="http://bitbucket.org/lucee/lucee/downloads/lucee-4.5.1.000.war"
+target="/opt/tomcat/webapps/lucee.war"
 
-#if [ -f "${runfile}" ]; then
-#  echo "Lucee provisioning already completed - ${runfile} exists - exiting"
-#  exit 0
-#fi
-
-if [ ! -d $rundir ]; then
-  echo "Creating directory ${rundir} ..."
-  mkdir -p "${rundir}"
+if [ -f "${runfile}" ]; then
+  echo "lucee provisioning already completed on `cat ${runfile}`"
+  echo "exiting lucee provisioning"
+  exit 0
 fi
 
-echo "Installing Lucee..."
+echo "Provisioning lucee ..."
 
-if [ ! -f "${rundir}/lucee-installer.run" ]; then
-  echo "Downloading Lucee..."
-  wget -c $luceeInstaller -O "${rundir}/lucee-installer.run"
-  chmod 744 "${rundir}/lucee-installer.run"
+service tomcat stop
+
+if [ ! -f "${target}" ]; then
+  echo "Downloading Lucee Web Archive ..."
+  wget -c -nv ${src} -O ${target}
 else
-  echo "Lucee was already downloaded"
+  echo "Lucee Web Archive already downloaded"
 fi
 
-${rundir}/lucee-installer.run --mode unattended --railopass $luceePassword --debuglevel 1
 
-service lucee_ctl stop
+#${rundir}/lucee-installer.run --mode unattended --railopass $luceePassword --debuglevel 1
 
-echo "Configuring Lucee for ${PRIVATE_NETWORK_IP} ..."
+#echo "Configuring Lucee for ${PRIVATE_NETWORK_IP} ..."
 
-sed -e "s/localhost/$PRIVATE_NETWORK_IP/g" /vagrant/provision/lucee/server.xml > temp
-mv temp "${rundir}/tomcat/conf/server.xml"
-service lucee_ctl start
-echo "Restarting Lucee..."
-service httpd restart
-touch "${runfile}"
+service tomcat start
 
-echo "Install Lucee Completed"
+#rm -f ${target}
+date > "${runfile}"
+echo "Completed lucee provisioning"

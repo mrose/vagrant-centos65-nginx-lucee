@@ -36,6 +36,10 @@ chmod +x /etc/init.d/tomcat
 # other files get copied to /opt/tomcat/conf
 cp -f /vagrant/provision/tomcat/tomcat-users.xml ${tomcathome}/conf/tomcat-users.xml
 
+#sed s:example.com:"$HOSTNAME":g /vagrant/provision/tomcat/server.xml > temp
+#mv -f temp ${tomcathome}/conf/server.xml
+
+
 service tomcat start
 chkconfig tomcat on
 service tomcat status
