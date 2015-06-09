@@ -10,7 +10,7 @@
 # Required-Stop: $network $syslog
 # Default-Start:
 # Default-Stop:
-# Description: Tomcat 8
+# Description: Tomcat 8 service
 # Short-Description: start and stop tomcat
 ### END INIT INFO
 
@@ -22,11 +22,10 @@ export JAVA_OPTS="-Dfile.encoding=UTF-8 \
   -XX:+UseConcMarkSweepGC \
   -XX:+CMSClassUnloadingEnabled \
   -XX:+UseParNewGC \
-  -XX:MaxPermSize=128m \
   -Xms512m -Xmx512m"
 export PATH=$JAVA_HOME/bin:$PATH
 TOMCAT_HOME=/opt/tomcat
-TOMCAT_USER=tomcat8
+TOMCAT_USER=tomcat
 SHUTDOWN_WAIT=20
 
 tomcat_pid() {

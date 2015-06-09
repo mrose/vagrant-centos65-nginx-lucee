@@ -17,7 +17,7 @@ if [ ! -d $tmp ]; then
   mkdir -p "${tmp}"
 fi
 
-useradd -r tomcat8 --shell /bin/false
+useradd -M -r tomcat --shell /bin/false
 
 
 if [ ! -f "${target}.tar.gz" ]; then
@@ -29,16 +29,16 @@ fi
 
 tar -zxf ${target}.tar.gz -C /opt
 ln -s /opt/${target} ${tomcathome}
-chown -hR tomcat8: ${tomcathome} /opt/${target}
-cp -f /vagrant/provision/tomcat/tomcat.init /etc/init.d/tomcat8
-chmod +x /etc/init.d/tomcat8
+chown -hR tomcat: ${tomcathome} /opt/${target}
+cp -f /vagrant/provision/tomcat/tomcat.init /etc/init.d/tomcat
+chmod +x /etc/init.d/tomcat
 
 # other files get copied to /opt/tomcat/conf
 cp -f /vagrant/provision/tomcat/tomcat-users.xml ${tomcathome}/conf/tomcat-users.xml
 
-service tomcat8 start
-chkconfig tomcat8 on
-service tomcat8 status
+service tomcat start
+chkconfig tomcat on
+service tomcat status
 
 date > "${runfile}"
 echo "Completed tomcat provisioning"

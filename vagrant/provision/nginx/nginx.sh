@@ -12,13 +12,17 @@ fi
 
 echo "Provisioning nginx ..."
 
-cp -f /vagrant/provision/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
-rpm --import /vagrant/provision/nginx/nginx_signing.key
-yum -y install nginx
+if [ -f /etc/yum.repos.d/nginx.repo ]; then
+  echo "rpm download not necessary since nginx rpm is already in the yum repo"
+else
+  cp -f /vagrant/provision/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
+  rpm --import /vagrant/provision/nginx/nginx_signing.key
+  yum -y install nginx
+fi
 
 echo "Writing nginx configuration files to: /etc/nginx/"
 cp -f /vagrant/provision/nginx/nginx.conf /etc/nginx/nginx.conf
-sed 's:example.com:$HOSTNAME:g' /vagrant/provision/nginx/default.conf > temp
+sed s:example.com:"$HOSTNAME":g /vagrant/provision/nginx/default.conf > temp
 mv -f temp /etc/nginx/conf.d/default.conf
 cp -f /vagrant/provision/nginx/drop.conf /etc/nginx/conf.d/drop.conf
 cp -f /vagrant/provision/nginx/lucee.conf /etc/nginx/conf.d/lucee.conf
