@@ -1,8 +1,8 @@
 #!/bin/sh
 
 runfile=".provision.java"
-jdk="java-1.8.0-openjdk java-1.8.0-openjdk-devel"
-target="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.45-28.b13.el6_6.x86_64"
+jdkyumsrc="java-1.8.0-openjdk java-1.8.0-openjdk-devel"
+javahome="/usr/lib/jvm/java/"
 
 #cookie="Cookie: oraclelicense=accept-securebackup-cookie"
 #rpmsrc="http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm"
@@ -17,15 +17,13 @@ fi
 
 echo "Provisioning java ..."
 
-yum -y install ${jdk}
+yum -y install ${jdkyumsrc}
 
 #wget --no-cookies --no-check-certificate --header "${cookie}" "${rpmsrc}" -O ${rpmtarget}
 #rpm -Uvh ${rpmtarget}
 
-
-export JAVA_HOME=/usr/lib/jvm/java/
+export JAVA_HOME=${javahome}
 java -version
 
 date > "${runfile}"
-
 echo "Completed java provisioning"

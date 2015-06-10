@@ -1,3 +1,4 @@
 Vagrantfile synced_folder s/b user/group apache not root
 
+# ?remove tomcat apps /docs /examples
 configure nginx as smtp server
