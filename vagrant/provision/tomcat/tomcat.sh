@@ -1,38 +1,40 @@
 #!/bin/sh
 
-runfile=".provision.tomcat"
-tomcatsrc="http://apache.spinellicreations.com/tomcat/tomcat-8/v8.0.23/bin/apache-tomcat-8.0.23.tar.gz"
-tomcathome="/opt/tomcat"
+source /vagrant/provision/config
 
-#target=basename ${tomcatsrc} .tar.gz
-target="apache-tomcat-8.0.23"
+runfile=".provision.tomcat"
 
 if [ -f "${runfile}" ]; then
   echo "tomcat provisioning already completed on `cat ${runfile}`"
   exit 0
 fi
 
-echo "Provisioning tomcat ..."
+echo "Provisioning tomcat..."
 
-useradd -M -r tomcat --shell /bin/false
+tomcat_dir=$(basename ${TOMCAT_SRC} .tar.gz) # e.g apache-tomcat-8.0.23
 
-if [ ! -f "${target}.tar.gz" ]; then
-  echo "Downloading Tomcat ..."
-  wget -c -nv ${tomcatsrc} -O ${target}.tar.gz
+useradd -M -r ${TOMCAT_USER} --shell /bin/false
+
+if [ ! -f "/vagrant/provision/downloads/${tomcat_dir}.tar.gz" ]; then
+  echo "Downloading Tomcat..."
+  wget -c -nv ${TOMCAT_SRC} -O /vagrant/provision/downloads/${tomcat_dir}.tar.gz
 else
   echo "Tomcat already downloaded"
 fi
 
-tar -xzf ${target}.tar.gz -C /opt
-ln -s /opt/${target} ${tomcathome}
-chown -hR tomcat: ${tomcathome} /opt/${target}
+echo "Extracting ${tomcat_dir}..."
+tar -xzf /vagrant/provision/downloads/${tomcat_dir}.tar.gz -C /opt
+
+echo "Installing ${TOMCAT_HOME}..."
+mv /opt/${tomcat_dir} ${TOMCAT_HOME}
+chown -hR tomcat: ${TOMCAT_HOME}
 cp -f /vagrant/provision/tomcat/tomcat.init /etc/init.d/tomcat
 chmod +x /etc/init.d/tomcat
-cp -f /vagrant/provision/tomcat/tomcat-users.xml ${tomcathome}/conf/tomcat-users.xml
+# remove unnecessary windoze files
+rm -f ${TOMCAT_HOME}/bin/*.bat
 
-# remove unnecessary files
-rm -f ${tomcathome}/bin/*.bat
-# ?remove /docs /examples
+echo "Copying tomcat-users.xml..."
+cp -f /vagrant/provision/tomcat/tomcat-users.xml ${TOMCAT_HOME}/conf/tomcat-users.xml
 
 service tomcat start
 chkconfig tomcat on

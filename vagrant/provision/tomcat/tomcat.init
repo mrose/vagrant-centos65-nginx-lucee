@@ -53,7 +53,7 @@ stop() {
   pid=$(tomcat_pid)
   if [ -n "$pid" ]
   then
-    echo "Stoping Tomcat"
+    echo "Stopping Tomcat"
     /bin/su -p -s /bin/sh $TOMCAT_USER $TOMCAT_HOME/bin/shutdown.sh
 
     let kwait=$SHUTDOWN_WAIT

@@ -3,7 +3,6 @@
 source /vagrant/provision/config
 
 runfile=".provision.nginx"
-
 if [ -f "${runfile}" ]; then
   echo "nginx provisioning already completed on `cat ${runfile}`"
   echo "exiting nginx provisioning"
@@ -15,6 +14,7 @@ echo "Provisioning nginx ..."
 if [ -f /etc/yum.repos.d/nginx.repo ]; then
   echo "nginx rpm download already completed"
 else
+  echo "Installing nginx..."
   cp -f /vagrant/provision/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
   rpm --import /vagrant/provision/nginx/nginx_signing.key
   yum -y install nginx
@@ -34,5 +34,4 @@ service nginx status
 echo "nginx default log file directory: /var/log/nginx/"
 echo "nginx default document root directory: /usr/share/nginx/html"
 date > "${runfile}"
-
 echo "Completed nginx provisioning"

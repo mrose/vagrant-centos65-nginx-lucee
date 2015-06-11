@@ -10,7 +10,7 @@ if [ -f "${runfile}" ]; then
   exit 0
 fi
 
-echo "Provisioning required basic software for guest $HOSTNAME at ${PRIVATE_NETWORK_IP} ..."
+echo "Provisioning required basic software for guest $HOSTNAME at ${PRIVATE_NETWORK_IP}..."
 
 # set server timezone
 echo $1 | ln -sf /usr/share/zoneinfo/US/Eastern /etc/localtime

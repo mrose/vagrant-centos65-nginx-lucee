@@ -1,28 +1,18 @@
 #!/bin/sh
 
+source /vagrant/provision/config
+
 runfile=".provision.java"
-jdkyumsrc="java-1.8.0-openjdk java-1.8.0-openjdk-devel"
-javahome="/usr/lib/jvm/java/"
-
-#cookie="Cookie: oraclelicense=accept-securebackup-cookie"
-#rpmsrc="http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm"
-#rpmtarget="/opt/jdk-8-linux-x64.rpm"
-
-
 if [ -f "${runfile}" ]; then
   echo "java provisioning already completed on `cat ${runfile}`"
   echo "exiting java provisioning"
   exit 0
 fi
 
-echo "Provisioning java ..."
+echo "Provisioning java..."
 
-yum -y install ${jdkyumsrc}
-
-#wget --no-cookies --no-check-certificate --header "${cookie}" "${rpmsrc}" -O ${rpmtarget}
-#rpm -Uvh ${rpmtarget}
-
-export JAVA_HOME=${javahome}
+yum -y install ${JDK_YUM_SRC}
+export JAVA_HOME=${JAVA_HOME}
 java -version
 
 date > "${runfile}"

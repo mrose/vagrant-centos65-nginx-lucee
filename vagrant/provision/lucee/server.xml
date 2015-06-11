@@ -2,6 +2,7 @@
 <Server port="8005" shutdown="SHUTDOWN">
     <Listener className="org.apache.catalina.startup.VersionLoggerListener" logArgs="true" logEnv="true" logProps="true" />
     <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="off" />
+    <Listener className="org.apache.catalina.core.JasperListener" />
     <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
     <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
     <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />

@@ -6,14 +6,6 @@
 source /vagrant/provision/config
 
 runfile=".provision.lucee"
-# luceePassword="vagrant"
-luceesrc="http://bitbucket.org/lucee/lucee/downloads/lucee-4.5.1.000.war"
-luceetmp="/home/vagrant/lucee"
-
-
-tomcathome="/opt/tomcat"
-
-
 if [ -f "${runfile}" ]; then
   echo "lucee provisioning already completed on `cat ${runfile}`"
   echo "exiting lucee provisioning"
@@ -21,35 +13,41 @@ if [ -f "${runfile}" ]; then
 fi
 
 echo "Provisioning lucee ..."
-service tomcat stop
 
-if [ ! -d ${luceetmp} ]; then
-  mkdir -p "${luceetmp}"
+if [ ! -d "/vagrant/provision/downloads/lucee" ]; then
+  mkdir /vagrant/provision/downloads/lucee
 fi
 
-if [ ! -f "${luceetmp}/lucee.war" ]; then
+if [ ! -f "/vagrant/provision/downloads/lucee/lucee.war" ]; then
   echo "Downloading Lucee Web Archive ..."
-  wget -c -nv ${luceesrc} -O ${luceetmp}/lucee.war
+  wget -c -nv ${LUCEE_SRC} -O /vagrant/provision/downloads/lucee/lucee.war
 else
   echo "Lucee Web Archive already downloaded"
 fi
 
-cd ${luceetmp}
+echo "Extracting Lucee..."
+cd /vagrant/provision/downloads/lucee
 jar -xf lucee.war
 cd /home/vagrant
 
-chown -hR tomcat: ${luceetmp}
-mkdir ${tomcathome}/lucee
-mv ${luceetmp}/WEB-INF/lib/* ${tomcathome}/lucee
-# rm -f ${luceetmp}/lucee.war
+if [ -d "${TOMCAT_HOME}/lucee" ]; then
+  rm -rf ${TOMCAT_HOME}/lucee
+fi
+mkdir ${TOMCAT_HOME}/lucee
+
+mv /vagrant/provision/downloads/lucee/WEB-INF/lib/* ${TOMCAT_HOME}/lucee
+chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/lucee
+
 # mv the rest somewhere?
-cp -f /vagrant/provision/lucee/catalina.properties ${tomcathome}/conf/catalina.properties
-cp -f /vagrant/provision/lucee/setenv.sh ${tomcathome}/bin/setenv.sh
+cp -f /vagrant/provision/lucee/catalina.properties ${TOMCAT_HOME}/conf/catalina.properties
+cp -f /vagrant/provision/lucee/setenv.sh ${TOMCAT_HOME}/bin/setenv.sh
+#cp -f /vagrant/provision/lucee/web.xml ${TOMCAT_HOME}/conf/web.xml
 
-#sed s:example.com:"$HOSTNAME":g /vagrant/provision/tomcat/server.xml > server.xml
-#mv -f server.xml ${tomcathome}/conf/server.xml
+#sed s:example.com:"$HOSTNAME":g /vagrant/provision/lucee/server.xml > server.xml
+#cp -f server.xml ${TOMCAT_HOME}/conf/server.xml
+#rm server.xml
 
-service tomcat start
+service tomcat restart
 service tomcat status
-date > "${runfile}"
+#date > "${runfile}"
 echo "Completed lucee provisioning"
