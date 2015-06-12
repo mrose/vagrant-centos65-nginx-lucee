@@ -15,6 +15,9 @@ tomcat_dir=$(basename ${TOMCAT_SRC} .tar.gz) # e.g apache-tomcat-8.0.23
 
 useradd -M -r ${TOMCAT_USER} --shell /bin/false
 
+echo "Installing Apache Tomcat Native Library"
+yum -y install apr-devel openssl-devel
+
 if [ ! -f "/vagrant/provision/downloads/${tomcat_dir}.tar.gz" ]; then
   echo "Downloading Tomcat..."
   wget -c -nv ${TOMCAT_SRC} -O /vagrant/provision/downloads/${tomcat_dir}.tar.gz

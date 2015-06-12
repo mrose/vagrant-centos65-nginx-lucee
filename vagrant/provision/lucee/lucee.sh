@@ -30,22 +30,34 @@ cd /vagrant/provision/downloads/lucee
 jar -xf lucee.war
 cd /home/vagrant
 
+# remove a previous install if it exists
 if [ -d "${TOMCAT_HOME}/lucee" ]; then
   rm -rf ${TOMCAT_HOME}/lucee
 fi
-mkdir ${TOMCAT_HOME}/lucee
+mkdir -p ${TOMCAT_HOME}/lucee
 
-mv /vagrant/provision/downloads/lucee/WEB-INF/lib/* ${TOMCAT_HOME}/lucee
-chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/lucee
+echo "Installing Lucee..."
+#cp -f /vagrant/provision/downloads/lucee/WEB-INF/lib/* ${TOMCAT_HOME}/lucee
+#chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/lucee
 
-# mv the rest somewhere?
 cp -f /vagrant/provision/lucee/catalina.properties ${TOMCAT_HOME}/conf/catalina.properties
-cp -f /vagrant/provision/lucee/setenv.sh ${TOMCAT_HOME}/bin/setenv.sh
-#cp -f /vagrant/provision/lucee/web.xml ${TOMCAT_HOME}/conf/web.xml
+#cp -f /vagrant/provision/lucee/setenv.sh ${TOMCAT_HOME}/bin/setenv.sh
+cp -f /vagrant/provision/lucee/web.xml ${TOMCAT_HOME}/conf/web.xml
 
 #sed s:example.com:"$HOSTNAME":g /vagrant/provision/lucee/server.xml > server.xml
 #cp -f server.xml ${TOMCAT_HOME}/conf/server.xml
 #rm server.xml
+
+if [ -d "/vagrant/.vagrant/tmp" ]; then
+  mkdir -p /vagrant/.vagrant/tmp
+fi
+
+mv -f /vagrant/provision/downloads/lucee/lucee.war /vagrant/.vagrant/tmp/lucee.war
+rm -rf ${TOMCAT_HOME}/webapps/ROOT/*
+cp -f /vagrant/provision/downloads/lucee/* ${TOMCAT_HOME}/webapps/ROOT
+rm -rf /vagrant/provision/downloads/lucee/*
+#mkdir -p /vagrant/provision/downloads/lucee
+mv -f /vagrant/.vagrant/tmp/lucee.war /vagrant/provision/downloads/lucee/lucee.war
 
 service tomcat restart
 service tomcat status
