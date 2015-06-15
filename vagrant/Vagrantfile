@@ -19,12 +19,17 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "provision/java/java.sh"
   config.vm.provision :shell, :path => "provision/tomcat/tomcat.sh"
   config.vm.provision :shell, :path => "provision/lucee/lucee.sh"
-#  config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
+  config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
 #  config.vm.provision :shell, :path => "provision/iptables/iptables.sh"
 #  config.vm.provision :shell, :path => "provision/mariadb/mariadb.sh"
 #  config.vm.provision :shell, :path => "provision/sendmail/sendmail.sh"
 
-# remove for production systems
- config.vm.synced_folder "webapps", "/opt/tomcat/webapps", owner:"tomcat", group:"tomcat"
+# remove for production systems, use ssh tunneling instead
+#  if !Dir.exist?( HOSTNAME )
+#    Dir.mkdir HOSTNAME
+#  end
+
+# config.vm.synced_folder "webapps", "/opt/tomcat/webapps", owner:"tomcat", group:"tomcat"
+#  config.vm.synced_folder HOSTNAME, "/opt/tomcat/webapps/$HOSTNAME", owner:"root", group:"root"
 
 end

@@ -17,6 +17,7 @@ fi
 
 # set server timezone
 echo $1 | ln -sf /usr/share/zoneinfo/US/Eastern /etc/localtime
+date
 
 # update to 6.5+ presumably more secure & better
 #yum -y update
