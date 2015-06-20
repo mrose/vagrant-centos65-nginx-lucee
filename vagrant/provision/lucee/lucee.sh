@@ -11,15 +11,15 @@ fi
 
 echo "Provisioning lucee..."
 
-if [ ! -f "/vagrant/provision/downloads/lucee.war" ]; then
+if [ ! -f "/vagrant/downloads/lucee.war" ]; then
   echo "Downloading Lucee Web Archive..."
-  wget -c -nv ${LUCEE_SRC} -O /vagrant/provision/downloads/lucee.war
+  wget -c -nv ${LUCEE_SRC} -O /vagrant/downloads/lucee.war
 else
   echo "Lucee Web Archive already downloaded"
 fi
 
 echo "Installing lucee to ${TOMCAT_HOME}/webapps/$HOSTNAME ..."
-cp -f /vagrant/provision/downloads/lucee.war ${TOMCAT_HOME}/webapps/$HOSTNAME.war
+cp -f /vagrant/downloads/lucee.war ${TOMCAT_HOME}/webapps/$HOSTNAME.war
 
 service tomcat restart
 service tomcat status

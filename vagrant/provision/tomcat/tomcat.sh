@@ -18,15 +18,15 @@ useradd -M -r ${TOMCAT_USER} --shell /bin/false
 echo "Installing Apache Tomcat Native Library"
 yum -y install apr-devel openssl-devel
 
-if [ ! -f "/vagrant/provision/downloads/${tomcat_dir}.tar.gz" ]; then
+if [ ! -f "/vagrant/downloads/${tomcat_dir}.tar.gz" ]; then
   echo "Downloading Tomcat..."
-  wget -c -nv ${TOMCAT_SRC} -O /vagrant/provision/downloads/${tomcat_dir}.tar.gz
+  wget -c -nv ${TOMCAT_SRC} -O /vagrant/downloads/${tomcat_dir}.tar.gz
 else
   echo "Tomcat already downloaded"
 fi
 
 echo "Extracting ${tomcat_dir}..."
-tar -xzf /vagrant/provision/downloads/${tomcat_dir}.tar.gz -C /opt
+tar -xzf /vagrant/downloads/${tomcat_dir}.tar.gz -C /opt
 
 echo "Installing to ${TOMCAT_HOME}..."
 mv /opt/${tomcat_dir} ${TOMCAT_HOME}

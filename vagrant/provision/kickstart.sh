@@ -11,8 +11,8 @@ fi
 
 echo "Provisioning required basic software for guest $HOSTNAME at ${PRIVATE_NETWORK_IP}..."
 
-if [ ! -d "/vagrant/provision/downloads" ]; then
-  mkdir /vagrant/provision/downloads
+if [ ! -d "/vagrant/downloads" ]; then
+  mkdir /vagrant/downloads
 fi
 
 # set server timezone
