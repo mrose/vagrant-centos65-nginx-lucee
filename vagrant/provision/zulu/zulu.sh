@@ -1,6 +1,6 @@
 #!/bin/sh
 
-runfile=".provision.zulu"
+runfile="/vagrant/.provision.zulu"
 src="http://repos.azulsystems.com/rhel/zulu.repo"
 jdk="zulu-8"
 

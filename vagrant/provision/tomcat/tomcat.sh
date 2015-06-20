@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile=".provision.tomcat"
+runfile="/vagrant/.provision.tomcat"
 
 if [ -f "${runfile}" ]; then
   echo "tomcat provisioning already completed on `cat ${runfile}`"
@@ -11,7 +11,7 @@ fi
 
 echo "Provisioning tomcat..."
 
-tomcat_dir=$(basename ${TOMCAT_SRC} .tar.gz) # e.g apache-tomcat-8.0.23
+tomcat_dir=$(basename ${TOMCAT_SRC} .tar.gz) # e.g. apache-tomcat-8.0.23
 
 useradd -M -r ${TOMCAT_USER} --shell /bin/false
 
@@ -28,7 +28,7 @@ fi
 echo "Extracting ${tomcat_dir}..."
 tar -xzf /vagrant/provision/downloads/${tomcat_dir}.tar.gz -C /opt
 
-echo "Installing ${TOMCAT_HOME}..."
+echo "Installing to ${TOMCAT_HOME}..."
 mv /opt/${tomcat_dir} ${TOMCAT_HOME}
 chown -hR tomcat: ${TOMCAT_HOME}
 cp -f /vagrant/provision/tomcat/tomcat.init /etc/init.d/tomcat

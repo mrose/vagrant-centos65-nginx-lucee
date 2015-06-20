@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile=".runonce.railo"
+runfile="/vagrant/.provision.railo"
 rundir="/opt/railo"
 railoPassword="vagrant"
 railoInstaller="http://www.getrailo.org/down.cfm?item=/railo/remote/download42/4.2.1.000/tomcat/linux/railo-4.2.1.000-pl2-linux-x64-installer.run&thankyou=false"

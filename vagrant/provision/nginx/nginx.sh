@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile=".provision.nginx"
+runfile="/vagrant/.provision.nginx"
 if [ -f "${runfile}" ]; then
   echo "nginx provisioning already completed on `cat ${runfile}`"
   echo "exiting nginx provisioning"

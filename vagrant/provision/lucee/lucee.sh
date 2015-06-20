@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile=".provision.lucee"
+runfile="/vagrant/.provision.lucee"
 if [ -f "${runfile}" ]; then
   echo "lucee provisioning already completed on `cat ${runfile}`"
   echo "exiting lucee provisioning"
@@ -18,12 +18,12 @@ else
   echo "Lucee Web Archive already downloaded"
 fi
 
-echo "Installing lucee..."
+echo "Installing lucee to ${TOMCAT_HOME}/webapps/$HOSTNAME ..."
 cp -f /vagrant/provision/downloads/lucee.war ${TOMCAT_HOME}/webapps/$HOSTNAME.war
 
 service tomcat restart
 service tomcat status
-rm ${TOMCAT_HOME}/webapps/$HOSTNAME.war
+#  rm ${TOMCAT_HOME}/webapps/$HOSTNAME.war
 
 date > "${runfile}"
 echo "Completed lucee provisioning"

@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile=".provision.java"
+runfile="/vagrant/.provision.java"
 if [ -f "${runfile}" ]; then
   echo "java provisioning already completed on `cat ${runfile}`"
   echo "exiting java provisioning"

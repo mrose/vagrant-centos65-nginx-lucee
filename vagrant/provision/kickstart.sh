@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile=".provision.kickstart"
+runfile="/vagrant/.provision.kickstart"
 if [ -f "${runfile}" ]; then
   echo "kickstart provisioning for guest $HOSTNAME at ${PRIVATE_NETWORK_IP} already completed on `cat ${runfile}`"
   echo "exiting kickstart provisioning"
