@@ -20,7 +20,7 @@ else
   yum -y install nginx
 fi
 
-echo "Writing nginx configuration files to: /etc/nginx/"
+echo "Writing nginx configuration files to: /etc/nginx/ ..."
 cp -f /vagrant/provision/nginx/nginx.conf /etc/nginx/nginx.conf
 
 sed s:example.com:"$HOSTNAME":g /vagrant/provision/nginx/default.conf > temp
