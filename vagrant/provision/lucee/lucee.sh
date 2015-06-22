@@ -19,10 +19,14 @@ else
 fi
 
 echo "Installing lucee to ${TOMCAT_HOME}/webapps/$HOSTNAME ..."
+if [ -d "${TOMCAT_HOME}/webapps/$HOSTNAME" ]; then
+  mkdir ${TOMCAT_HOME}/webapps/$HOSTNAME
+fi
 cp -f /vagrant/downloads/lucee.war ${TOMCAT_HOME}/webapps/$HOSTNAME.war
 
 service tomcat restart
 service tomcat status
+# under rare circumstances tomcat fails to restart properly so we'll leave the war file in place
 #  rm ${TOMCAT_HOME}/webapps/$HOSTNAME.war
 
 date > "${runfile}"

@@ -25,7 +25,7 @@
             </Realm>
 
             <Host name="localhost" appBase="webapps" unpackWARs="false" autoDeploy="true">
-                <Context path="" docBase="/var/www/" allowLinking="true" />
+                <Context path="" docBase="/etc/tomcat/webapps/" allowLinking="true" />
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                    prefix="localhost_access_log." suffix=".txt"
                    pattern="%h %l %u %t &quot;%r&quot; %s %b" resolveHosts="false"/>

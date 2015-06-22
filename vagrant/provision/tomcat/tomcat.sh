@@ -39,10 +39,6 @@ rm -f ${TOMCAT_HOME}/bin/*.bat
 echo "Copying tomcat-users.xml..."
 cp -f /vagrant/provision/tomcat/tomcat-users.xml ${TOMCAT_HOME}/conf/tomcat-users.xml
 
-if [ -d "${TOMCAT_HOME}/webapps/$HOSTNAME" ]; then
-  mkdir ${TOMCAT_HOME}/webapps/$HOSTNAME
-fi
-
 service tomcat start
 chkconfig tomcat on
 service tomcat status
