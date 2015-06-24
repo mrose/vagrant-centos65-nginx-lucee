@@ -30,18 +30,19 @@ rm -f lucee.war
 cd /home/vagrant 
 
 echo "Installing Lucee..."
-mkdir -p ${TOMCAT_HOME}/sites/$HOSTNAME
 mkdir ${TOMCAT_HOME}/lucee
 mv /vagrant/tmp/WEB-INF/lib/* ${TOMCAT_HOME}/lucee
 chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/lucee
-chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/sites
 
 cp -f /vagrant/provision/lucee/catalina.properties ${TOMCAT_HOME}/conf/catalina.properties
-cp -f /vagrant/provision/lucee/setenv.sh ${TOMCAT_HOME}/bin/setenv.sh
-cp -f /vagrant/provision/lucee/web.xml ${TOMCAT_HOME}/conf/web.xml
-
+cp -f /vagrant/provision/lucee/setenv.sh           ${TOMCAT_HOME}/bin/setenv.sh
+cp -f /vagrant/provision/lucee/web.xml             ${TOMCAT_HOME}/conf/web.xml
 sed s:example.com:"$HOSTNAME":g /vagrant/provision/lucee/server.xml > /vagrant/tmp/server.xml
 mv -f /vagrant/tmp/server.xml ${TOMCAT_HOME}/conf/server.xml
+
+mkdir -p ${TOMCAT_HOME}/sites/$HOSTNAME/webroot
+mv /vagrant/tmp/* ${TOMCAT_HOME}/sites/$HOSTNAME/webroot
+chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/sites
 
 service tomcat restart
 service tomcat status
