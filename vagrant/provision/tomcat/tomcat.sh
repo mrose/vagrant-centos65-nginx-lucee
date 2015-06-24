@@ -36,6 +36,10 @@ chmod +x /etc/init.d/tomcat
 # remove unnecessary windoze files
 rm -f ${TOMCAT_HOME}/bin/*.bat
 
+# remove examples & docs app
+rm -rf ${TOMCAT_HOME}/webapps/docs
+rm -rf ${TOMCAT_HOME}/webapps/examples
+
 echo "Copying tomcat-users.xml..."
 cp -f /vagrant/provision/tomcat/tomcat-users.xml ${TOMCAT_HOME}/conf/tomcat-users.xml
 

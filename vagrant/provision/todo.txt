@@ -1,4 +1,6 @@
 Vagrantfile synced_folder s/b user/group apache not root
 
 # ?remove tomcat apps /docs /examples
-configure nginx as smtp server
+configure nginx as smtp server or install smtp proxy
+
+create lucee-multihost.sh and nginx-multihost.sh
