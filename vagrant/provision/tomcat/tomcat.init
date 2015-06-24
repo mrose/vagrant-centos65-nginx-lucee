@@ -24,6 +24,7 @@ export JAVA_OPTS="-Dfile.encoding=UTF-8 \
   -XX:+UseParNewGC \
   -Xms512m -Xmx512m"
 export PATH=$JAVA_HOME/bin:$PATH
+export CATALINA_HOME=/opt/tomcat
 TOMCAT_HOME=/opt/tomcat
 TOMCAT_USER=tomcat
 SHUTDOWN_WAIT=20

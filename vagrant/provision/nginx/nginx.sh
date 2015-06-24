@@ -36,6 +36,5 @@ chkconfig nginx on
 service nginx status
 
 echo "nginx default log file directory: /var/log/nginx/"
-echo "nginx default document root directory: /usr/share/nginx/html"
 date > "${runfile}"
 echo "Completed nginx provisioning"

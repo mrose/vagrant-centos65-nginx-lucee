@@ -15,24 +15,32 @@
     </GlobalNamingResources>
 
     <Service name="Catalina">
-
         <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" />
-
         <Engine name="Catalina" defaultHost="localhost">
-
             <Realm className="org.apache.catalina.realm.LockOutRealm">
                 <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
             </Realm>
 
             <Host name="localhost" appBase="webapps" unpackWARs="false" autoDeploy="true">
-                <Context path="" docBase="/etc/tomcat/webapps/" allowLinking="true" />
-                <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
-                   prefix="localhost_access_log." suffix=".txt"
-                   pattern="%h %l %u %t &quot;%r&quot; %s %b" resolveHosts="false"/>
+              <Valve
+                 className="org.apache.catalina.valves.AccessLogValve"
+                 directory="logs"
+                 prefix="localhost_access_log."
+                 suffix=".txt"
+                 pattern="%h %l %u %t &quot;%r&quot; %s %b"
+	               resolveHosts="false"/>
+            </Host>
+
+            <Host name="example.com" appBase="webapps" unpackWARs="false">
+              <Context path="" docBase="/opt/tomcat/sites/example.com" />
+              <Valve
+                 className="org.apache.catalina.valves.AccessLogValve"
+                 directory="logs"
+                 prefix="example.com_access_log."
+                 suffix=".txt"
+                 pattern="%h %l %u %t &quot;%r&quot; %s %b" />
             </Host>
 
         </Engine>
-
     </Service>
-
 </Server>
