@@ -6,4 +6,4 @@ TOMCAT_SRC="http://apache.spinellicreations.com/tomcat/tomcat-8/v8.0.23/bin/apac
 TOMCAT_HOME="/opt/tomcat"
 TOMCAT_USER="tomcat"
 LUCEE_SRC="http://bitbucket.org/lucee/lucee/downloads/lucee-4.5.1.000.war"
-# luceePassword="vagrant"
+MARIADB_ROOT_PWD="mariadb"

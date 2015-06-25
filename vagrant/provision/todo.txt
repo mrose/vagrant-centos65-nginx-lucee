@@ -1,6 +1,11 @@
+SED update tomcat-users.xml with config
+
 Vagrantfile synced_folder s/b user/group apache not root
 
-# ?remove tomcat apps /docs /examples
+
 configure nginx as smtp server or install smtp proxy
 
-create lucee-multihost.sh and nginx-multihost.sh
+
+? create lucee-multihost.sh and nginx-multihost.sh
+SED and then use lucee administrative interface to install default users and passwords
+mariadb setup default users and passwords
