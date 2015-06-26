@@ -23,5 +23,4 @@ yum install ${jdk}
 #java -version
 
 date > "${runfile}"
-
 echo "Completed java provisioning"

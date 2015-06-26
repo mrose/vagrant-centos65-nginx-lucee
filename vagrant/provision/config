@@ -1,5 +1,6 @@
 HOSTNAME="centos65.local"
 PRIVATE_NETWORK_IP="192.168.10.10"
+TIMEZONE="US/Eastern"
 JDK_YUM_SRC="java-1.8.0-openjdk java-1.8.0-openjdk-devel"
 JAVA_HOME="/usr/lib/jvm/java/"
 TOMCAT_SRC="http://apache.spinellicreations.com/tomcat/tomcat-8/v8.0.23/bin/apache-tomcat-8.0.23.tar.gz"
