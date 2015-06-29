@@ -14,5 +14,7 @@ echo "Provisioning custom..."
 echo "Installing git..."
 yum -y install git
 
+# https://bitbucket.org/lucee/lucee/wiki/Cookbook_Configuration_Administrator_CFC
+
 date > "${runfile}"
 echo "Completed custom provisioning"

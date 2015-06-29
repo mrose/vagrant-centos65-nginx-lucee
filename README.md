@@ -2,7 +2,8 @@ vagrant-centos65-nginx-lucee
 ======================
 
 Centos6.5 minimal, on a Vagrant/VirtualBox VM, provisioned using shell
-Includes java, tomcat, lucee (lucee.org), nginx
+Includes java, tomcat, lucee (lucee.org), nginx, mariadb
+Single host, intended primarily for development.
 
 Licensed under the MIT License
 
