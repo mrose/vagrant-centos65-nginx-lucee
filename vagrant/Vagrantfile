@@ -22,11 +22,12 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "provision/lucee/lucee.sh"
   config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
   config.vm.provision :shell, :path => "provision/custom/custom.sh"
-#  config.vm.provision :shell, :path => "provision/iptables/iptables.sh"
+  config.vm.provision :shell, :path => "provision/iptables/iptables.sh"
 #  config.vm.provision :shell, :path => "provision/sendmail/sendmail.sh"
 
 # remove for production systems, use ssh tunneling instead
 # http://dnando.github.io/blog/2014/11/04/ssh-tunneling-coldfusion-lockdown-technique/
+# https://github.com/apenwarr/sshuttle/blob/master/README.md
 # config.vm.synced_folder "webapps", "/opt/tomcat/webapps", owner:"tomcat", group:"tomcat"
 #  config.vm.synced_folder HOSTNAME, "/opt/tomcat/webapps/$HOSTNAME", owner:"root", group:"root"
 

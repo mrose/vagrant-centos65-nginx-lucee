@@ -1,11 +1,9 @@
-complete lucee setup with admin interface
+add bootstrap cfm script + sed to custom.sh
 
 reorganize users/passwords in config and SED
-  incl SED update tomcat-users.xml with config
-  incl SED update lucee setup too
 
 determine whether a custom my.cnf s/b used
 
 configure nginx as smtp server or install smtp proxy
 
-out of scope: create lucee-multihost.sh and nginx-multihost.sh
+zulu i/o java setup

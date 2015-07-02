@@ -40,8 +40,9 @@ rm -f ${TOMCAT_HOME}/bin/*.bat
 rm -rf ${TOMCAT_HOME}/webapps/docs
 rm -rf ${TOMCAT_HOME}/webapps/examples
 
-echo "Copying tomcat-users.xml..."
-cp -f /vagrant/provision/tomcat/tomcat-users.xml ${TOMCAT_HOME}/conf/tomcat-users.xml
+echo "Installing tomcat-users.xml..."
+sed -e s:tomcat_user:"$TOMCAT_USER": -e s:tomcat_manager_gui_password:"$TOMCAT_MANAGER_GUI_PASSWORD": /vagrant/provision/tomcat/tomcat-users.xml > /vagrant/tmp/tomcat-users.xml
+mv -f /vagrant/tmp/tomcat-users.xml ${TOMCAT_HOME}/conf/tomcat-users.xml
 
 service tomcat start
 chkconfig tomcat on
