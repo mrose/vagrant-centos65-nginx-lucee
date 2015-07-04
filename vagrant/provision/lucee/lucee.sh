@@ -11,6 +11,9 @@ fi
 
 echo "Provisioning lucee..."
 
+if [ ! -d "/vagrant/downloads" ]; then
+  mkdir /vagrant/downloads
+fi
 if [ ! -f "/vagrant/downloads/lucee.war" ]; then
   echo "Downloading Lucee Web Archive..."
   wget -c -nv ${LUCEE_SRC} -O /vagrant/downloads/lucee.war
@@ -45,11 +48,11 @@ mv /vagrant/tmp/* ${TOMCAT_HOME}/sites/$HOSTNAME/webroot
 chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/sites
 
 # create lucee user and databases for session and client storage
-sudo mysql -u root -p"$MARIADB_ROOT_PWD" -e "CREATE USER 'lucee'@'localhost' IDENTIFIED BY 'lucee'"
-sudo mysql -u root -p"$MARIADB_ROOT_PWD" -e "GRANT ALL PRIVILEGES ON * . * TO 'lucee'@'localhost'"
-sudo mysql -u root -p"$MARIADB_ROOT_PWD" -e "FLUSH PRIVILEGES"
-sudo mysql -u root -p"$MARIADB_ROOT_PWD" -e "CREATE DATABASE IF NOT EXISTS railo_client"
-sudo mysql -u root -p"$MARIADB_ROOT_PWD" -e "CREATE DATABASE IF NOT EXISTS railo_session"
+sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "CREATE USER '$MARIADB_LUCEE_USER'@'localhost' IDENTIFIED BY '$MARIADB_LUCEE_PASSWORD'"
+sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON * . * TO '$MARIADB_LUCEE_USER'@'localhost'"
+sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "FLUSH PRIVILEGES"
+sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS railo_client"
+sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS railo_session"
 
 service tomcat restart
 service tomcat status

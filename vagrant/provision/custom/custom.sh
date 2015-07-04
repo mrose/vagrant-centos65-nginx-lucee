@@ -9,21 +9,27 @@ if [ -f "${runfile}" ]; then
   exit 0
 fi
 
-echo "Provisioning custom..."
+echo "Applying custom provisioning..."
 
-# install git and clone a repo, if you like
-#echo "Installing git..."
-#yum -y install git
+echo "Installing nano..."
+yum -y install nano
 
-# install lucee admin passwords.
-# not really necessary since :8080 is only exposed on localhost
-# but from a security perspective a good practice
-
+# install lucee admin passwords. a good security practice though :8080 is only exposed on localhost
 echo "Setting Lucee server admin password..."
-curl -F new_password=$LUCEE_SERVER_PASSWORD -F new_password_re=$LUCEE_SERVER_PASSWORD -F lang=en -F rememberMe=d -F submit=submit http://localhost:8080/lucee/admin/server.cfm >/dev/null
+curl -F new_password=$LUCEE_SERVER_PASSWORD -F new_password_re=$LUCEE_SERVER_PASSWORD -F lang=en -F rememberMe=d -F submit=submit http://localhost:8080/lucee/admin/server.cfm >/dev/null 2>&1
 
 echo "Setting Lucee web admin password..."
-curl -F new_password=$LUCEE_WEB_PASSWORD -F new_password_re=$LUCEE_WEB_PASSWORD -F lang=en -F rememberMe=d -F submit=submit http://localhost:8080/lucee/admin/web.cfm >/dev/null
+curl -F new_password=$LUCEE_WEB_PASSWORD -F new_password_re=$LUCEE_WEB_PASSWORD -F lang=en -F rememberMe=d -F submit=submit http://localhost:8080/lucee/admin/web.cfm >/dev/null 2>&1
+
+echo "Executing custom kickstart script..."
+sed s:lucee_server_password:"$LUCEE_SERVER_PASSWORD": /vagrant/provision/custom/kickstart.cfm > /vagrant/tmp/kickstart.cfm
+mv -f /vagrant/tmp/kickstart.cfm ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/kickstart.cfm
+curl http://localhost:8080/kickstart.cfm  2>&1
+rm ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/kickstart.cfm
+
+# install git and clone a repo into webroot now, if you like
+#echo "Installing git..."
+#yum -y install git
 
 date > "${runfile}"
 echo "Completed custom provisioning"

@@ -11,13 +11,18 @@ fi
 
 echo "Provisioning tomcat..."
 
+echo "Installing wget..."
+yum -y install wget
+
 tomcat_dir=$(basename ${TOMCAT_SRC} .tar.gz) # e.g. apache-tomcat-8.0.23
 
 useradd -M -r ${TOMCAT_USER} --shell /bin/false
 
 echo "Installing Apache Tomcat Native Library"
 yum -y install apr-devel openssl-devel
-
+if [ ! -d "/vagrant/downloads" ]; then
+  mkdir /vagrant/downloads
+fi
 if [ ! -f "/vagrant/downloads/${tomcat_dir}.tar.gz" ]; then
   echo "Downloading Tomcat..."
   wget -c -nv ${TOMCAT_SRC} -O /vagrant/downloads/${tomcat_dir}.tar.gz

@@ -15,15 +15,8 @@ echo "Provisioning required basic software for guest $HOSTNAME at ${PRIVATE_NETW
 ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 date
 
-if [ ! -d "/vagrant/downloads" ]; then
-  mkdir /vagrant/downloads
-fi
-
 # update to 6.5+ presumably more secure & better
 #yum -y update
-
-echo "Installing nano, wget..."
-yum -y install nano wget
 
 date > "${runfile}"
 echo "Completed kickstart provisioning"
