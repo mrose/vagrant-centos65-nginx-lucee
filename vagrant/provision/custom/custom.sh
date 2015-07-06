@@ -24,7 +24,7 @@ curl -F new_password=$LUCEE_WEB_PASSWORD -F new_password_re=$LUCEE_WEB_PASSWORD 
 echo "Executing custom kickstart script..."
 sed s:lucee_server_password:"$LUCEE_SERVER_PASSWORD": /vagrant/provision/custom/kickstart.cfm > /vagrant/tmp/kickstart.cfm
 mv -f /vagrant/tmp/kickstart.cfm ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/kickstart.cfm
-curl http://localhost:8080/kickstart.cfm  2>&1
+curl http://localhost:8080/kickstart.cfm 2>/dev/null
 rm ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/kickstart.cfm
 
 # install git and clone a repo into webroot now, if you like
