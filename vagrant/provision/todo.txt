@@ -1,6 +1,4 @@
 complete iptables setup
 block/disable ipv6 traffic
-configure nginx as smtp server or install smtp proxy
 determine whether a custom my.cnf s/b used
-fix output on custom.sh curl custom.cfm
 zulu i/o java setup
