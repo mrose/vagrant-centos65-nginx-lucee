@@ -10,6 +10,7 @@ Licensed under the MIT License
 See the wiki for installation instructions
 
 Thanks to:
+
 Mike Sprague   [https://github.com/mikesprague/vagrant-lemtl]
 
 Robert Zehnder [https://kisdigital.wordpress.com/tag/nginx/]
