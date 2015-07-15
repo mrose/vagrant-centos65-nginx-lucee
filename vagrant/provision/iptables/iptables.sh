@@ -30,19 +30,20 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 
-# smtp/s
-iptables -A INPUT -p tcp -m tcp --dport 25 -j ACCEPT
+# allow smtp/s
+#iptables -A INPUT -p tcp -m tcp --dport 25 -j ACCEPT
+#iptables -A INPUT -p udp -m udp --dport 25 -j ACCEPT 
 # iptables -A INPUT -p tcp -m tcp --dport 465 -j ACCEPT
 
-# pop3/s
+# allow pop3/s
 # iptables -A INPUT -p tcp -m tcp --dport 110 -j ACCEPT
 # iptables -A INPUT -p tcp -m tcp --dport 995 -j ACCEPT
 
-# imap/s
+# allow imap/s
 # iptables -A INPUT -p tcp -m tcp --dport 143 -j ACCEPT
 # iptables -A INPUT -p tcp -m tcp --dport 993 -j ACCEPT
 
-# ssh from all IPs
+# allow ssh from all IPs
 iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
 # or from only one IP:
 # iptables -A INPUT -p tcp -s $HOST_IP_ADDRESS -m tcp --dport 22 -j ACCEPT
@@ -51,6 +52,10 @@ iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
 
 # allow any established outgoing connection to receive replies from other side of that connection
 iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# allow smpt out
+iptables -A OUTPUT -p tcp --dport 25 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 25 -j ACCEPT
 
 # block everything else
 iptables -P OUTPUT ACCEPT
