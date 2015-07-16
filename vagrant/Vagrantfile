@@ -30,6 +30,6 @@ Vagrant.configure("2") do |config|
 # https://github.com/apenwarr/sshuttle/blob/master/README.md
 
 #  SITE = TOMCAT_HOME + '/sites/' + HOSTNAME
-#  config.vm.synced_folder "../synced", SITE, owner:"root", group:"root"
+#  config.vm.synced_folder "../synced", SITE, owner:"vagrant", group:"vagrant"
 
 end
