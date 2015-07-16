@@ -46,6 +46,7 @@ mv -f /vagrant/tmp/server.xml ${TOMCAT_HOME}/conf/server.xml
 mkdir -p ${TOMCAT_HOME}/sites/$HOSTNAME/webroot
 mv /vagrant/tmp/* ${TOMCAT_HOME}/sites/$HOSTNAME/webroot
 chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/sites
+rmdir /vagrant/tmp
 
 # create lucee user and databases for session and client storage
 sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "CREATE USER '$MARIADB_LUCEE_USER'@'localhost' IDENTIFIED BY '$MARIADB_LUCEE_PASSWORD'"

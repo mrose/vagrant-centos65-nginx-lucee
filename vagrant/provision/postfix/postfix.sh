@@ -10,13 +10,16 @@ if [ -f "${runfile}" ]; then
 fi
 
 echo "Provisioning postfix..."
-
+if [ ! -d "/vagrant/tmp" ]; then
+  mkdir /vagrant/tmp
+fi
 # replace all 'example.com' with hostname
 sed s:example.com:"$HOSTNAME":g /vagrant/provision/postfix/main.cf > /vagrant/tmp/main.cf
 if [ ! -f /etc/postfix/main.cf.original ]; then
   mv /etc/postfix/main.cf /etc/postfix/main.cf.original
 fi
 mv -f /vagrant/tmp/main.cf /etc/postfix/main.cf
+rmdir /vagrant/tmp
 
 service postfix restart
 chkconfig postfix on
