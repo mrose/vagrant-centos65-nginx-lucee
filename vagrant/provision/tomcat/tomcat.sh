@@ -3,7 +3,6 @@
 source /vagrant/provision/config
 
 runfile="/vagrant/.provision.tomcat"
-
 if [ -f "${runfile}" ]; then
   echo "tomcat provisioning already completed on `cat ${runfile}`"
   exit 0
