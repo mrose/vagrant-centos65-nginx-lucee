@@ -1,5 +1,4 @@
-iptables restart n/w
+lucee server admin postfix setup
 ws protocol
-block/disable ipv6 traffic
 determine whether a custom my.cnf s/b used
 zulu i/o java setup

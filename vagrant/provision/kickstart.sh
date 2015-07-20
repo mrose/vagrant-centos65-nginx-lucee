@@ -18,5 +18,10 @@ date
 # update to 6.5+ presumably more secure & better
 #yum -y update
 
+# disable ipv6 traffic
+echo "...disabling IPv6"
+sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sysctl -w net.ipv6.conf.default.disable_ipv6=1
+
 date > "${runfile}"
 echo "Completed kickstart provisioning"

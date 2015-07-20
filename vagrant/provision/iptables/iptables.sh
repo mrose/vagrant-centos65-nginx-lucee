@@ -15,20 +15,28 @@ echo "Provisioning iptables..."
 iptables -F
 
 #echo "...block null packets"
-#iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
 
 #echo "...reject a syn-flood attack"
-#iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
 
 #echo "...reject xmas packets"
-#iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 
 echo "...accept any localhost"
 iptables -A INPUT -i lo -j ACCEPT
 
-echo "...allow web server traffic to :80 and :443"
+echo "...allow web server traffic to :80"
 iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+
+#echo "...allow web server traffic to :443"
+#iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+
+# allow :8080 to be visible in dev only
+if [ ${ENVIRONMENT} = "dev" ]; then
+  echo "...allow web server traffic to :8080"
+  iptables -A INPUT -p tcp -m tcp --dport 8080 -j ACCEPT
+fi
 
 # allow smtp/s
 # iptables -A INPUT -p tcp -m tcp --dport 25 -j ACCEPT
@@ -72,8 +80,6 @@ mv /vagrant/tmp/iptables /etc/sysconfig/iptables
 rmdir /vagrant/tmp
 
 service iptables restart
-echo "Listing iptables rules..."
-iptables -L -n
 
 date > "${runfile}"
 echo "Completed iptables provisioning"
