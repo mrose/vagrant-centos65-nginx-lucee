@@ -48,6 +48,10 @@ mv /vagrant/tmp/* ${TOMCAT_HOME}/sites/$HOSTNAME/webroot
 chown -hR ${TOMCAT_USER}: ${TOMCAT_HOME}/sites
 rmdir /vagrant/tmp
 
+# vagrant user, added to tomcat group, can edit using ssh
+usermod -g tomcat vagrant
+chmod -R 775 ${TOMCAT_HOME}/sites
+
 # create lucee user and databases for session and client storage
 sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "CREATE USER '$MARIADB_LUCEE_USER'@'localhost' IDENTIFIED BY '$MARIADB_LUCEE_PASSWORD'"
 sudo mysql -u root -p"$MARIADB_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON * . * TO '$MARIADB_LUCEE_USER'@'localhost'"
