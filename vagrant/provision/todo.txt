@@ -1,4 +1,5 @@
-complete iptables setup
+iptables restart n/w
+ws protocol
 block/disable ipv6 traffic
 determine whether a custom my.cnf s/b used
 zulu i/o java setup

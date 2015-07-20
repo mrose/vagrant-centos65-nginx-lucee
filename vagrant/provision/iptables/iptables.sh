@@ -14,25 +14,25 @@ echo "Provisioning iptables..."
 # flush any existing
 iptables -F
 
-# block null packets
-iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+#echo "...block null packets"
+#iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
 
-# reject a syn-flood attack
-iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+#echo "...reject a syn-flood attack"
+#iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
 
-# reject xmas packets
-iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+#echo "...reject xmas packets"
+#iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 
-# accept any localhost
+echo "...accept any localhost"
 iptables -A INPUT -i lo -j ACCEPT
 
-# allow web server traffic
+echo "...allow web server traffic to :80 and :443"
 iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 
 # allow smtp/s
-#iptables -A INPUT -p tcp -m tcp --dport 25 -j ACCEPT
-#iptables -A INPUT -p udp -m udp --dport 25 -j ACCEPT 
+# iptables -A INPUT -p tcp -m tcp --dport 25 -j ACCEPT
+# iptables -A INPUT -p udp -m udp --dport 25 -j ACCEPT 
 # iptables -A INPUT -p tcp -m tcp --dport 465 -j ACCEPT
 
 # allow pop3/s
@@ -43,25 +43,34 @@ iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 # iptables -A INPUT -p tcp -m tcp --dport 143 -j ACCEPT
 # iptables -A INPUT -p tcp -m tcp --dport 993 -j ACCEPT
 
-# allow ssh from all IPs
+echo "...allow ssh from all IPs"
 iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
 # or from only one IP:
 # iptables -A INPUT -p tcp -s $HOST_IP_ADDRESS -m tcp --dport 22 -j ACCEPT
 
 # ??? :1234/9418 git; :123 ntp; :3306 mariadb
 
-# allow any established outgoing connection to receive replies from other side of that connection
+echo "...allow any established outgoing connection to receive replies from other side of that connection"
 iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-# allow smpt out
+echo "...allow smtp out"
 iptables -A OUTPUT -p tcp --dport 25 -j ACCEPT
 iptables -A OUTPUT -p udp --dport 25 -j ACCEPT
 
-# block everything else
+echo "...block everything else"
 iptables -P OUTPUT ACCEPT
 iptables -P INPUT DROP
 
-iptables -save | tee /etc/sysconfig/iptables
+echo "...saving configuration"
+if [ ! -d "/vagrant/tmp" ]; then
+  mkdir /vagrant/tmp
+fi
+iptables -S | tee /vagrant/tmp/iptables
+sed -i '1i *filter' /vagrant/tmp/iptables
+echo 'COMMIT' >> /vagrant/tmp/iptables
+mv /vagrant/tmp/iptables /etc/sysconfig/iptables
+rmdir /vagrant/tmp
+
 service iptables restart
 echo "Listing iptables rules..."
 iptables -L -n
