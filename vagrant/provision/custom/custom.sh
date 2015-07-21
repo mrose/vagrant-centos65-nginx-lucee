@@ -25,9 +25,15 @@ echo "Executing custom script..."
 if [ ! -d "/vagrant/tmp" ]; then
   mkdir /vagrant/tmp
 fi
-sed s:lucee_server_password:"$LUCEE_SERVER_PASSWORD": /vagrant/provision/custom/custom.cfm > /vagrant/tmp/custom.cfm
+#cp /vagrant/provision/config /vagrant/tmp/config.ini
+#sed -i '1i [all]' /vagrant/tmp/config.ini
+#mv -f /vagrant/tmp/config.ini ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/config.ini
+
+sed s:lucee_server_password:"$LUCEE_SERVER_PASSWORD":g /vagrant/provision/custom/custom.cfm > /vagrant/tmp/custom.cfm
 mv -f /vagrant/tmp/custom.cfm ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/custom.cfm
+
 curl http://localhost:8080/custom.cfm 2>/dev/null
+#rm ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/config.ini
 rm ${TOMCAT_HOME}/sites/$HOSTNAME/webroot/custom.cfm
 rmdir /vagrant/tmp
 

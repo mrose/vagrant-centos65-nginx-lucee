@@ -1,4 +1,3 @@
-lucee server admin postfix setup
 ws protocol
 determine whether a custom my.cnf s/b used
 zulu i/o java setup
