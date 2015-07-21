@@ -1,6 +1,6 @@
 #!/bin/sh
 
-runfile="/vagrant/.provision.apache"
+runfile="/vagrant/provision/.apache.provisioned"
 if [ -f "${runfile}" ]; then
   echo "Apache provisioning already completed on `cat ${runfile}`"
   exit 0

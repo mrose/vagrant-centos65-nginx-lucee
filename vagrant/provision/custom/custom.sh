@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile="/vagrant/.provision.custom"
+runfile="/vagrant/provision/.custom.provisioned"
 if [ -f "${runfile}" ]; then
   echo "custom provisioning already completed on `cat ${runfile}`"
   echo "exiting custom provisioning"

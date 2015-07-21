@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile="/vagrant/.provision.lucee"
+runfile="/vagrant/provision/.lucee.provisioned"
 if [ -f "${runfile}" ]; then
   echo "lucee provisioning already completed on `cat ${runfile}`"
   echo "exiting lucee provisioning"

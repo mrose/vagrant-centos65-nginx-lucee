@@ -6,7 +6,7 @@
 
 source /vagrant/provision/config
 
-runfile="/vagrant/.provision.mariadb"
+runfile="/vagrant/provision/.mariadb.provisioned"
 if [ -f "${runfile}" ]; then
   echo "mariadb provisioning already completed on `cat ${runfile}`"
   echo "exiting mariadb provisioning"

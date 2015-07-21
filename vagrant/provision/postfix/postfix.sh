@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile="/vagrant/.provision.postfix"
+runfile="/vagrant/provision/.postfix.provisioned"
 if [ -f "${runfile}" ]; then
   echo "postfix provisioning already completed on `cat ${runfile}`"
   echo "exiting postfix provisioning"

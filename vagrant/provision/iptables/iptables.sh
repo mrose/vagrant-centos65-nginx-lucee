@@ -2,7 +2,7 @@
 
 source /vagrant/provision/config
 
-runfile="/vagrant/.provision.iptables"
+runfile="/vagrant/provision/.iptables.provisioned"
 if [ -f "${runfile}" ]; then
   echo "iptables provisioning already completed on `cat ${runfile}`"
   echo "exiting iptables provisioning"
