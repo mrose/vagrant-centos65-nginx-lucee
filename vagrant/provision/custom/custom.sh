@@ -11,8 +11,8 @@ fi
 
 echo "Applying custom provisioning..."
 
-echo "Installing nano..."
-yum -y install nano
+echo "Installing nano, git..."
+yum -y install nano git
 
 # install lucee admin passwords. a good security practice though :8080 is only exposed on localhost
 echo "Setting Lucee server admin password..."

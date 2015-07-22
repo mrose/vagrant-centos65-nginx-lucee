@@ -23,5 +23,5 @@ admin.updateCharset(resourceCharset:"UTF-8");
   remoteClients="">
 <cfscript>
 
-writeoutput( 'kickstart.cfm completed successfully' );
+writeoutput( 'custom.cfm completed successfully' );
 </cfscript>

@@ -21,8 +21,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "provision/tomcat/tomcat.sh"
   config.vm.provision :shell, :path => "provision/lucee/lucee.sh"
   config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
-  config.vm.provision :shell, :path => "provision/custom/custom.sh"
   config.vm.provision :shell, :path => "provision/postfix/postfix.sh"
+  config.vm.provision :shell, :path => "provision/custom/custom.sh"
   config.vm.provision :shell, :path => "provision/iptables/iptables.sh"
 
 # for production systems, use ssh tunneling, vpn, or similar:
