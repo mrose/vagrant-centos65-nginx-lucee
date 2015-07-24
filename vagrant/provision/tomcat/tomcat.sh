@@ -19,14 +19,15 @@ useradd -M -r ${TOMCAT_USER} --shell /bin/false
 
 echo "Installing Apache Tomcat Native Library"
 yum -y install apr-devel openssl-devel
+
+echo "Downloading Tomcat..."
 if [ ! -d "/vagrant/downloads" ]; then
   mkdir /vagrant/downloads
 fi
 if [ ! -f "/vagrant/downloads/${tomcat_dir}.tar.gz" ]; then
-  echo "Downloading Tomcat..."
   wget -c -nv ${TOMCAT_SRC} -O /vagrant/downloads/${tomcat_dir}.tar.gz
 else
-  echo "Tomcat already downloaded"
+  echo "...Tomcat already downloaded"
 fi
 
 echo "Extracting ${tomcat_dir}..."
@@ -34,7 +35,6 @@ tar -xzf /vagrant/downloads/${tomcat_dir}.tar.gz -C /opt
 
 echo "Installing to ${TOMCAT_HOME}..."
 mv /opt/${tomcat_dir} ${TOMCAT_HOME}
-chown -hR tomcat: ${TOMCAT_HOME}
 cp -f /vagrant/provision/tomcat/tomcat.init /etc/init.d/tomcat
 chmod +x /etc/init.d/tomcat
 # remove unnecessary windoze files
@@ -51,6 +51,8 @@ fi
 sed -e s:tomcat_user:"$TOMCAT_USER": -e s:tomcat_manager_gui_password:"$TOMCAT_MANAGER_GUI_PASSWORD": /vagrant/provision/tomcat/tomcat-users.xml > /vagrant/tmp/tomcat-users.xml
 mv -f /vagrant/tmp/tomcat-users.xml ${TOMCAT_HOME}/conf/tomcat-users.xml
 rmdir /vagrant/tmp
+
+chown -hR tomcat: ${TOMCAT_HOME}
 
 service tomcat start
 chkconfig tomcat on
