@@ -14,6 +14,7 @@ if [ ! -d "/vagrant/tmp" ]; then
   mkdir /vagrant/tmp
 fi
 # replace all 'example.com' with hostname
+#domain=`echo $HOSTNAME | egrep -o '(\.[A-Za-z0-9-]+){2}$'`
 sed s:example.com:"$HOSTNAME":g /vagrant/provision/postfix/main.cf > /vagrant/tmp/main.cf
 if [ ! -f /etc/postfix/main.cf.original ]; then
   mv /etc/postfix/main.cf /etc/postfix/main.cf.original
