@@ -14,18 +14,25 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = HOSTNAME
 
   config.vm.provider :virtualbox do |vb|
+    # dynamically determine cpus & memory: https://github.com/nodesource/vagrant-lldb-perf/blob/master/Vagrantfile
+      # cpus = `nproc`.to_i
+      # meminfo shows KB and we need to convert to MB
+      # MEMORY = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+      # right now MEMORY variable is set in config
     vb.customize ["modifyvm", :id, "--memory", MEMORY]
+      # vb.customize ["modifyvm", :id, "--cpus", cpus]
+    vb.customize ["modifyvm", :id, "--ioapic", "on" ]
   end
 
-  config.vm.provision :shell, :path => "provision/kickstart/kickstart.sh"
-  config.vm.provision :shell, :path => "provision/java/java.sh"
-  config.vm.provision :shell, :path => "provision/tomcat/tomcat.sh"
-  config.vm.provision :shell, :path => "provision/lucee/lucee.sh"
-  config.vm.provision :shell, :path => "provision/nginx/nginx.sh"
-  config.vm.provision :shell, :path => "provision/postfix/postfix.sh"
-  config.vm.provision :shell, :path => "provision/mariadb/mariadb.sh"
-  config.vm.provision :shell, :path => "provision/custom/custom.sh"
-  config.vm.provision :shell, :path => "provision/iptables/iptables.sh"
+  config.vm.provision "shell", path: "provision/kickstart/kickstart.sh", name: "kickstart"
+  config.vm.provision "shell", path: "provision/java/java.sh", name: "java"
+  config.vm.provision "shell", path: "provision/tomcat/tomcat.sh", name: "tomcat"
+  config.vm.provision "shell", path: "provision/lucee/lucee.sh", name: "lucee"
+  config.vm.provision "shell", path: "provision/nginx/nginx.sh", name: "nginx"
+  config.vm.provision "shell", path: "provision/postfix/postfix.sh", name: "postfix"
+  config.vm.provision "shell", path: "provision/mariadb/mariadb.sh", name: "mariadb"
+  config.vm.provision "shell", path: "provision/custom/custom.sh", name: "custom"
+  config.vm.provision "shell", path: "provision/iptables/iptables.sh", name: "iptables"
 
 # use ssh tunneling, vpn, or similar:
 # http://dnando.github.io/blog/2014/11/04/ssh-tunneling-coldfusion-lockdown-technique/
